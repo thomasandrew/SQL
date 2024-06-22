@@ -1,0 +1,76 @@
+---EX09
+SELECT SUM(co.qtd) AS total
+  FROM compras As co
+ INNER JOIN produto AS pr
+   ON co.idproduto = pr.idproduto
+ WHERE pr.nomeproduto = 'Marcarrão';
+ 
+SELECT DISTINCT nomeproduto 
+  FROM produto;
+  
+---EX10
+SELECT COUNT(*), SUM(co.qtd * pr.preco) AS total
+  FROM compras AS co
+ INNER JOIN produto AS pr
+   ON pr.idproduto = co.idproduto;
+   
+---EX11
+SELECT estado, COUNT(*) AS qtd
+  FROM cliente
+ GROUP BY estado
+ ORDER BY qtd DESC;
+ 
+---EX12	
+SELECT uf, COUNT(*) AS qtd
+  FROM loja
+ GROUP BY uf;
+ 
+---EX13
+SELECT ma.nomemarca, COUNT(*) as qtd
+  FROM produto AS pr
+ INNER JOIN marca AS ma
+   ON pr.idmarca = ma.idmarca
+ GROUP BY ma.nomemarca;
+ 
+---EX14
+SELECT ma.nomemarca, SUM(co.qtd * pr.preco) AS total
+  FROM compras AS co
+ INNER JOIN produto AS pr
+   ON pr.idproduto = co.idproduto
+ INNER JOIN marca AS ma
+   ON pr.idmarca = ma.idmarca
+ GROUP BY ma.nomemarca
+ ORDER BY total DESC;
+ 
+---EX15
+SELECT pr.nomeproduto, ROUND(AVG(co.qtd), 2) as media
+  FROM produto AS pr
+ INNER JOIN compras AS co
+   ON pr.idproduto = co.idproduto
+ GROUP BY pr.nomeproduto
+ ORDER BY pr.nomeproduto DESC;
+ 
+---EX16
+SELECT lj.nomeloja, SUM(co.qtd * pr.preco) AS faturamento
+  FROM loja AS lj
+ INNER JOIN compras AS co
+   ON lj.idloja = co.idloja
+ INNER JOIN produto AS pr
+   ON pr.idproduto = co.idproduto
+ GROUP BY lj.nomeloja
+ ORDER BY faturamento DESC;
+ 
+---EX17
+SELECT cl.nomecliente, sum(co.qtd) AS total
+  FROM cliente AS cl
+ INNER JOIN compras AS co
+   ON cl.idcliente = co.idcliente
+ GROUP BY cl.nomecliente
+ ORDER BY total DESC;
+ 
+---EX18
+SELECT cidade, COUNT(*) AS qtd
+  FROM cliente
+ GROUP BY cidade 
+ ORDER BY qtd DESC, cidade ASC
+ LIMIT 5;
